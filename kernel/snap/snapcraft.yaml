@@ -109,6 +109,7 @@ parts:
     source: fit-image/
     build-packages:
       - u-boot-tools
+      - device-tree-compiler
     override-build: |
       mkimage \
         -f fitImage-riscv64.its \
