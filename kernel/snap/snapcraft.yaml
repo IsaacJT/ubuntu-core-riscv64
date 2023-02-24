@@ -73,6 +73,10 @@ parts:
     override-build: |
       dpkg -x ubuntu-core-initramfs*_riscv64.deb \
         ${CRAFT_PART_INSTALL}
+
+      # Extra initrd modules
+      echo sdhci-cadence >> \
+        ${CRAFT_PART_INSTALL}/usr/lib/ubuntu-core-initramfs/modules/main/extra-modules.conf
     organize:
       usr/lib/ubuntu-core-initramfs: ubuntu-core-initramfs
     prime:
