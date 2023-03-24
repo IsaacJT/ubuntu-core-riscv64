@@ -71,7 +71,7 @@ parts:
       - modules
     organize:
       boot/vmlinuz-*: Image
-      lib/modules/*: modules
+      lib/modules: modules
       lib/firmware/*/device-tree: dtbs
 
   # In order to support cross-compilation, we need to do a few tricks with
@@ -105,7 +105,7 @@ parts:
       KERNEL_VERSION=$(cat ${CRAFT_STAGE}/.kernel_ver)
       ubuntu-core-initramfs create-initrd \
         --kernelver=${KERNEL_VERSION} \
-        --kerneldir=${CRAFT_STAGE}/modules \
+        --kerneldir=${CRAFT_STAGE}/modules/${KERNEL_VERSION} \
         --skeleton=${CRAFT_STAGE}/ubuntu-core-initramfs \
         --firmwaredir=${CRAFT_STAGE}/firmware \
         --output=${CRAFT_PART_INSTALL}/initrd.img
