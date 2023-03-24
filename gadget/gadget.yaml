@@ -11,8 +11,6 @@ volumes:
         content:
           - source: boot.scr
             target: /
-          - source: cloud.conf
-            target: /
       - name: hss
         type: 21686148-6449-6E6F-744E-656564454649
         size: 4M
@@ -30,8 +28,6 @@ volumes:
             target: uboot/ubuntu/boot.sel
           - source: boot.scr
             target: /
-          - source: cloud.conf
-            target: /
       - name: ubuntu-save
         role: system-save
         filesystem: ext4
@@ -45,4 +41,15 @@ volumes:
 
 defaults:
   system:
-    service.console-conf.disable: true
+    service.console-conf.disable: false
+    system.network.netplan:
+      network:
+        version: 2
+        renderer: networkd
+        ethernets:
+          eth:
+            match:
+              name: "eth*"
+            dhcp4: true
+            dhcp6: true
+            optional: true

@@ -14,10 +14,6 @@ architectures:
 confinement: strict
 
 parts:
-  cloud-conf:
-    plugin: dump
-    source: cloud-conf/
-
   boot-scr:
     plugin: nil
     source: boot-scr/
