@@ -18,6 +18,8 @@ volumes:
         size: 4M
         content:
           - image: payload.bin
+        update:
+          edition: 1
       - name: ubuntu-boot
         role: system-boot
         filesystem: ext4
