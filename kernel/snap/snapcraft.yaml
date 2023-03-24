@@ -15,6 +15,16 @@ confinement: strict
 package-repositories:
   - type: apt
     ppa: snappy-dev/image
+  # Get the latest version of the riscv64 kernel. Note we can't use the ppa
+  # syntax here because snapcraft doesn't allow arch specifiers there.
+  - type: apt
+    url: https://ppa.launchpadcontent.net/canonical-kernel-team/ppa/ubuntu
+    architectures: [riscv64]
+    formats: [deb]
+    components: [main]
+    suites: [jammy]
+    key-id: 110E21D8B0E2A1F0243AF6820856F197B892ACEA
+    key-server: keyserver.ubuntu.com
 
 parts:
   firmware:
@@ -50,7 +60,7 @@ parts:
 
       depmod -a -b ${CRAFT_PART_INSTALL} ${KERNEL_VER}
 
-      craftctl set version="${KERNEL_VER}"
+      craftctl set version="$(apt info linux-generic:${CRAFT_TARGET_ARCH} | grep Version: | cut -f2 -d\ )"
       craftctl set grade="stable"
     stage:
       - Image
